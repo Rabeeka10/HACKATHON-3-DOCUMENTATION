@@ -1,120 +1,77 @@
-# HACKATHON-3-DOCUMENTATION
-# E-Commerce Project
+# Guide to Import Data into Sanity
 
-## **Project Overview**
-This e-commerce project is built using **Next.js**, **Tailwind CSS**, and **Sanity CMS**, offering dynamic product displays, cart functionalities, and API integration for shipping and tracking. It aims to provide a user-friendly interface for browsing and purchasing furniture.
+This guide provides step-by-step instructions to set up a project and import data into Sanity for the Products models.
 
 ---
 
-## **Features**
-- Dynamic product listing and filtering.
-- Add-to-cart functionality with real-time cart count updates.
-- Integration with **Sanity CMS** for product management.
-- API endpoints for shipping labels, tracking, and rate calculations using **ShipEngine**.
-- Responsive design with **Tailwind CSS**.
-- Deployed on **Vercel** for continuous integration and deployment.
+## **Step 1: Clone the Repository**
 
----
+Start by cloning the repository containing the Sanity project and import scripts:
 
-## **File Structure**
-```
-project-root/
-├── app/
-│   ├── api/
-│   │   ├── shipengine/
-│   │   │   ├── label/
-│   │   │   │   └── route.ts
-│   │   │   ├── tracking/
-│   │   │   │   └── route.ts
-│   │   │   ├── get-rates/
-│   │   │   │   └── route.ts
-│   │   └── page.tsx
-│   ├── components/
-│   │   ├── latestproducts.tsx
-│   │   ├── featuredproducts.tsx
-│   │   └── cart.tsx
-│   ├── pages/
-│   │   └── index.tsx
-├── lib/
-│   └── helper/
-│       └── shipEngine.ts
-├── public/
-│   ├── images/
-│   └── assets/
-├── styles/
-│   └── globals.css
-├── sanity/
-│   ├── schemas/
-│   └── config/
-├── package.json
-├── next.config.js
-├── tailwind.config.js
-├── README.md
+Use Github Desktop to clone the repo `( Recommended )`
+
+or
+
+```bash
+git clone https://github.com/anasseth/next-ecommerce-template-4.git
+cd next-ecommerce-template-4
 ```
 
 ---
 
-## **Key Components and Directories**
+## **Step 2: Install Dependencies**
 
-### **1. app/api/shipengine/**
-Contains API routes for interacting with ShipEngine:
-- `label/route.ts`: Handles label creation.
-- `tracking/route.ts`: Manages shipment tracking.
-- `get-rates/route.ts`: Fetches shipping rates.
+Run the following command to install all required packages:
 
-### **2. app/components/**
-- `latestproducts.tsx`: Displays the latest products dynamically.
-- `featuredproducts.tsx`: Highlights featured products.
-- `cart.tsx`: Manages the shopping cart functionality, including dynamic updates.
-
-### **3. lib/helper/**
-- `shipEngine.ts`: Contains helper functions for API integration with ShipEngine.
-
-### **4. sanity/**
-- **Schemas:** Define the data structure for managing products in Sanity CMS.
-- **Config:** Stores configuration files for connecting to the CMS.
+```bash
+npm install
+```
 
 ---
 
-## **Deployment**
-https://template-4-hackathon-3.vercel.app/
+## **Step 3: Configure Environment Variables**
 
-### **Platform:**
-The project is deployed on **Vercel** for seamless integration with Next.js.
+1. Create a `.env` file in the root of the project directory:
 
-### **Deployment Steps:**
-1. Connected the GitHub repository to Vercel.
-2. Verified the build command (`npm run build`) and output directory (`.next`).
-3. Added necessary environment variables in the Vercel dashboard.
-4. Deployed successfully with a live URL.
+2. Open `.env` and add the following environment variables:
 
----
+   ```bash
+   NEXT_PUBLIC_SANITY_API_VERSION="2025-01-15"
+   NEXT_PUBLIC_SANITY_PROJECT_ID="{your-sanity-project-id}"
+   NEXT_PUBLIC_SANITY_DATASET="production"
+   SANITY_API_TOKEN="{your-sanity-api-token}"
+   ```
 
-## **Technologies Used**
-- **Next.js**: For server-side rendering and routing.
-- **Tailwind CSS**: For styling and responsive design.
-- **Sanity CMS**: For managing product data.
-- **ShipEngine API**: For shipping label creation, tracking, and rate calculations.
-- **React-Toastify**: For notifications (e.g., item added to cart).
-- **Vercel**: For hosting and continuous deployment.
+   - **`NEXT_PUBLIC_SANITY_PROJECT_ID`**: Found in your Sanity project.
+   - **`SANITY_API_TOKEN`**: Generate a token by navigating to **Settings > API > Add API Token** in your Sanity dashboard. Give the token appropriate read/write permissions - Select `Developer`.
+   - **`NEXT_PUBLIC_SANITY_DATASET`**: Set this to `production`.
 
 ---
 
-## **Future Improvements**
-1. **Enhanced State Management:**
-   - Implement Redux or Zustand for managing the global state.
+## **Step 4: Import Data**
 
-2. **Improved Testing:**
-   - Add unit and integration tests for key components and API routes.
+Run the following command to import sample data for `Product` models:
 
-3. **UI Consistency:**
-   - Introduce a design system or component library.
-
-4. **Error Handling:**
-   - Implement better error boundaries and fallback UIs for API failures.
+```bash
+npm run import-data
+```
 
 ---
 
-## **Contributions**
-Feel free to fork the repository and submit pull requests for any improvements or bug fixes!
+## **Step 5: Verify the Data in Sanity Studio**
 
+1. Go to your Sanity Studio project.
+2. You should see `Product` models
+3. Model will have some sample documents automatically populated after the import.
+
+---
+
+## **Troubleshooting Tips**
+
+- Ensure that your API token has proper permissions to write data to your dataset.
+- Double-check that your `NEXT_PUBLIC_SANITY_PROJECT_ID` and `SANITY_API_TOKEN` values are correct.
+- If errors occur during data import, review the terminal logs for detailed messages.
+
+---
+
+By following these steps, you will successfully import sample data into your Sanity project and have functional models ready for use.
